@@ -1,9 +1,9 @@
 ---
-title: "learnr state demo"
+title: "learnrhash - state"
 output: learnr::tutorial
 runtime: shiny_prerendered
 tutorial:
-  id: "state-demo"
+  id: "demo-state"
   version: 1.0
 ---
 

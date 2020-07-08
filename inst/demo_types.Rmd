@@ -1,9 +1,9 @@
 ---
-title: "A Minimal Example"
+title: "learnrhash - Question Types"
 output: learnr::tutorial
 runtime: shiny_prerendered
 tutorial:
-  id: "minimal-example"
+  id: "demo-types"
   version: 1.0
 ---
 

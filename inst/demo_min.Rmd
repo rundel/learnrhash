@@ -1,0 +1,35 @@
+---
+title: "learnrhash - Minimal"
+output: learnr::tutorial
+runtime: shiny_prerendered
+tutorial:
+  id: "demo-minimal"
+  version: 1.0
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+options(tutorial.event_recorder = learnr:::debug_event_recorder)
+```
+
+## Question
+
+```{r planets, echo=FALSE}
+learnr::question(
+  "Which planet do we live on?",
+  answer("Mars",   correct = FALSE),
+  answer("Earth",  correct = TRUE),
+  answer("Saturn", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+## Submit
+
+```{r context="server"}
+learnrhash::encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui()
+```
