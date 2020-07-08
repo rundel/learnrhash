@@ -1,5 +1,43 @@
 #' @export
-shiny_logic = function(input, output, session) {
+decoder_logic = function() {
+  p = parent.frame()
+  check_server_context(p)
+
+  input = p$input
+  output = p$output
+  session = p$session
+
+  obj_txt = shiny::eventReactive(
+    input$decode,
+    {
+      obj = learnrhash::decode_obj(input$decode_text)
+      txt = capture.output(print(str(obj)))
+      paste(txt, collapse="\n")
+    }
+  )
+
+  output$decode_out = renderText(obj_txt())
+}
+
+#' @export
+decoder_ui = function() {
+  shiny::tags$div(
+    shiny::textAreaInput("decode_text", "Hash to decode"),
+    shiny::actionButton("decode", "Decode!"),
+    shiny::tags$br(),
+    learnrhash:::wrapped_verbatim_text_output("decode_out")
+  )
+}
+
+#' @export
+encoder_logic = function() {
+  p = parent.frame()
+  check_server_context(p)
+
+  input = p$input
+  output = p$output
+  session = p$session
+
 
   encoded_txt = shiny::eventReactive(
     input$hash_generate,
@@ -20,7 +58,7 @@ shiny_logic = function(input, output, session) {
 }
 
 #' @export
-shiny_hash_ui = function(inst=NULL, url=NULL) {
+encoder_ui = function(inst=NULL, url=NULL) {
 
   inst = paste(
     "If you have completed this learnr assignment and are happy with all of your",
@@ -54,4 +92,21 @@ wrapped_verbatim_text_output = function(outputId, placeholder = FALSE) {
   x$attribs$style = "white-space: pre-wrap;"
 
   x
+}
+
+check_server_context = function(.envir = parent.frame()) {
+  if (
+    !inherits(.envir$input,   "reactivevalues") |
+    !inherits(.envir$output,  "shinyoutput")    |
+    !inherits(.envir$session, "ShinySession")
+  ) {
+    calling_func = deparse(sys.calls()[[sys.nframe()-1]])
+
+    err = paste0(
+      "Function `", calling_func,"`",
+      " must be called from an Rmd chunk where `context = \"server\"`"
+    )
+
+    stop(err, call. = FALSE)
+  }
 }
