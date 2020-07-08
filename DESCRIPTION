@@ -12,7 +12,10 @@ LazyData: true
 Imports: 
     learnr,
     shiny,
-    base64enc
+    base64enc,
+    dplyr,
+    tidyr,
+    purrr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 

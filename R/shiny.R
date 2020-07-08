@@ -4,16 +4,20 @@ decoder_logic = function() {
   check_server_context(p)
 
   local({
-    obj_txt = shiny::eventReactive(
+    shiny::observeEvent(
       input$decode,
       {
-        obj = learnrhash::decode_obj(input$decode_text)
-        txt = capture.output(print(str(obj)))
-        paste(txt, collapse="\n")
+        d = tibble::tibble(
+          hash = input$decode_text
+        )
+
+        qu_tibble = learnrhash::extract_questions(d, hash)
+        output$decode_questions = shiny::renderText(learnrhash:::obj_to_text(qu_tibble))
+
+        ex_tibble = learnrhash::extract_exercises(d, hash)
+        output$decode_exercises = shiny::renderText(learnrhash:::obj_to_text(ex_tibble))
       }
     )
-
-    output$decode_out = renderText(obj_txt())
   }, envir = p)
 }
 
@@ -26,7 +30,11 @@ decoder_ui = function() {
     shiny::actionButton("decode", "Decode!"),
     shiny::tags$br(),
     shiny::tags$br(),
-    learnrhash:::wrapped_verbatim_text_output("decode_out")
+    shiny::tags$h4("Questions:"),
+    wrapped_verbatim_text_output("decode_questions"),
+    shiny::tags$br(),
+    shiny::tags$h4("Exercises:"),
+    wrapped_verbatim_text_output("decode_exercises")
   )
 }
 
@@ -138,4 +146,10 @@ check_server_context = function(.envir) {
 
     stop(err, call. = FALSE)
   }
+}
+
+obj_to_text = function(obj) {
+  text = capture.output(print(obj))
+
+  paste(text, collapse="\n")
 }
