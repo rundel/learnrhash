@@ -49,3 +49,7 @@ test_that("test compression", {
   expect_error(decode_obj(test_none, "bzip2"))
   expect_error(decode_obj(test_none, "gzip"))
 })
+
+test_that("test empty", {
+  expect_identical(decode_obj(""), list())
+})

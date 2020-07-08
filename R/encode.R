@@ -12,6 +12,9 @@ encode_obj = function(obj, compress = c("bzip2", "gzip", "xz", "none"))  {
 
 #' @export
 decode_obj = function(txt, compress = c("bzip2", "gzip", "xz", "none")) {
+  if (txt == "")
+    return(list())
+
   compress = match.arg(compress)
 
   comp_raw = base64enc::base64decode(txt)
