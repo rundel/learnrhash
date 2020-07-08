@@ -8,6 +8,7 @@ tutorial:
 ---
 
 ```{r setup, include=FALSE}
+
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(exercise.checker = gradethis::grade_learnr)
@@ -25,7 +26,7 @@ learnrhash::encoder_logic()
 
 ```{r details}
 question_text(
-  "Student Identifier:",
+  "Student Name:",
   answer(NULL, correct = TRUE),
   incorrect = "Ok",
   try_again_button = "Modify your answer",
@@ -37,7 +38,7 @@ question_text(
 ## Fixed-response questions
 
 ```{r planets}
-learnr::question(
+question(
   "Which planet do we live on?",
   answer("Mars",   correct = FALSE),
   answer("Earth",  correct = TRUE),
@@ -49,7 +50,7 @@ learnr::question(
 ## Multiple-response questions
 
 ```{r not_a_planets}
-learnr::question(
+question(
   "Which of the following are planets?",
   answer("Mars",   correct = TRUE),
   answer("Earth",  correct = TRUE),
@@ -85,20 +86,14 @@ learnrhash::encoder_ui()
 ```
 
 
-```{r spacing}
-shiny::tags$br()
-shiny::tags$hr()
-shiny::tags$br()
-```
+<br/><br/><br/>
 
 ```{r context='server', echo=FALSE}
 learnrhash::decoder_logic()
 ```
 
-
 ```{r decoder, echo=FALSE}
 learnrhash::decoder_ui()
-
 ```
 
 

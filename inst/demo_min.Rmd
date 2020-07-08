@@ -9,7 +9,7 @@ tutorial:
 
 ```{r setup, include=FALSE}
 library(learnr)
-options(tutorial.event_recorder = learnr:::debug_event_recorder)
+#options(tutorial.event_recorder = learnr:::debug_event_recorder)
 ```
 
 ## Question
