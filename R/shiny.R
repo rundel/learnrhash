@@ -3,20 +3,18 @@ decoder_logic = function() {
   p = parent.frame()
   check_server_context(p)
 
-  input = p$input
-  output = p$output
-  session = p$session
+  local({
+    obj_txt = shiny::eventReactive(
+      input$decode,
+      {
+        obj = learnrhash::decode_obj(input$decode_text)
+        txt = capture.output(print(str(obj)))
+        paste(txt, collapse="\n")
+      }
+    )
 
-  obj_txt = shiny::eventReactive(
-    input$decode,
-    {
-      obj = learnrhash::decode_obj(input$decode_text)
-      txt = capture.output(print(str(obj)))
-      paste(txt, collapse="\n")
-    }
-  )
-
-  output$decode_out = renderText(obj_txt())
+    output$decode_out = renderText(obj_txt())
+  }, envir = p)
 }
 
 #' @export
@@ -27,6 +25,7 @@ decoder_ui = function() {
     shiny::textAreaInput("decode_text", "Hash to decode"),
     shiny::actionButton("decode", "Decode!"),
     shiny::tags$br(),
+    shiny::tags$br(),
     learnrhash:::wrapped_verbatim_text_output("decode_out")
   )
 }
@@ -36,27 +35,25 @@ encoder_logic = function() {
   p = parent.frame()
   check_server_context(p)
 
-  input = p$input
-  output = p$output
-  session = p$session
+  # Evaluate in parent frame to get input, output, and session
+  local({
+    encoded_txt = shiny::eventReactive(
+      input$hash_generate,
+      {
+        objs = learnr:::get_all_state_objects(session)
+        objs = learnr:::submissions_from_state_objects(objs)
+
+        learnrhash::encode_obj(objs)
+      }
+    )
+
+    output$hash_output = shiny::renderText(encoded_txt())
 
 
-  encoded_txt = shiny::eventReactive(
-    input$hash_generate,
-    {
-      objs = learnr:::get_all_state_objects(session)
-      objs = learnr:::submissions_from_state_objects(objs)
-
-      encode_obj(objs)
-    }
-  )
-
-  output$hash_output = shiny::renderText(encoded_txt())
-
-
-  shiny::observeEvent(input$hash_copy, {
-    clipr::write_clip(encoded_txt(), allow_non_interactive = TRUE)
-  })
+    shiny::observeEvent(input$hash_copy, {
+      clipr::write_clip(encoded_txt(), allow_non_interactive = TRUE)
+    })
+  }, envir = p)
 }
 
 #' @export
