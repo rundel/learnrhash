@@ -9,13 +9,34 @@ tutorial:
 
 ```{r setup, include=FALSE}
 library(learnr)
-
-options(tutorial.event_recorder = learnr:::debug_event_recorder)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(exercise.checker = gradethis::grade_learnr)
 ```
 
-## Question
 
-```{r planets, echo=FALSE}
+```{r context="server", echo = FALSE}
+options(tutorial.event_recorder = learnr:::debug_event_recorder)
+
+learnrhash::encoder_logic()
+```
+
+
+## Details
+
+```{r details}
+question_text(
+  "Student Identifier:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
+
+## Fixed-response questions
+
+```{r planets}
 learnr::question(
   "Which planet do we live on?",
   answer("Mars",   correct = FALSE),
@@ -25,17 +46,59 @@ learnr::question(
 )
 ```
 
-## Check State
+## Multiple-response questions
 
-```{r context="server"}
-shiny::observeEvent(input$get_state, {
-  objs = learnr:::get_all_state_objects(session)
-  objs = learnr:::submissions_from_state_objects(objs)
-  
-  print(str(objs))
-})
+```{r not_a_planets}
+learnr::question(
+  "Which of the following are planets?",
+  answer("Mars",   correct = TRUE),
+  answer("Earth",  correct = TRUE),
+  answer("Saturn", correct = TRUE),
+  answer("Pluto",  correct = FALSE),
+  allow_retry = TRUE
+)
 ```
 
-```{r state, ech=FALSE}
-shiny::actionButton("get_state", "Get State")
+## Code
+
+```{r code, exercise=TRUE}
+1+1
 ```
+
+## Code - gradethis
+
+```{r code2, exercise=TRUE}
+1+1
+```
+
+```{r code2-check}
+gradethis::grade_result(
+  gradethis::pass_if(~ TRUE, "Submitted!"),
+  glue_correct = "{.message}"
+)
+```
+
+## Submit
+
+```{r encoder, echo=FALSE}
+learnrhash::encoder_ui()
+```
+
+
+```{r spacing}
+shiny::tags$br()
+shiny::tags$hr()
+shiny::tags$br()
+```
+
+```{r context='server', echo=FALSE}
+learnrhash::decoder_logic()
+```
+
+
+```{r decoder, echo=FALSE}
+learnrhash::decoder_ui()
+
+```
+
+

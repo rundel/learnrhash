@@ -1,0 +1,40 @@
+---
+title: "learnr state demo"
+output: learnr::tutorial
+runtime: shiny_prerendered
+tutorial:
+  id: "state-demo"
+  version: 1.0
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+options(tutorial.event_recorder = learnr:::debug_event_recorder)
+```
+
+## Question
+
+```{r planets, echo=FALSE}
+learnr::question(
+  "Which planet do we live on?",
+  answer("Mars",   correct = FALSE),
+  answer("Earth",  correct = TRUE),
+  answer("Saturn", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+## Check State
+
+```{r context="server"}
+shiny::observeEvent(input$get_state, {
+  objs = learnr:::get_all_state_objects(session)
+  objs = learnr:::submissions_from_state_objects(objs)
+  
+  print(str(objs))
+})
+```
+
+```{r state, ech=FALSE}
+shiny::actionButton("get_state", "Get State")
+```
