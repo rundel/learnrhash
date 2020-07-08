@@ -33,3 +33,13 @@ learnrhash::encoder_logic()
 ```{r encode, echo=FALSE}
 learnrhash::encoder_ui()
 ```
+
+## Decode
+
+```{r context="server"}
+learnrhash::decoder_logic()
+```
+
+```{r decode, echo=FALSE}
+learnrhash::decoder_ui()
+```
