@@ -21,6 +21,8 @@ decoder_logic = function() {
 
 #' @export
 decoder_ui = function() {
+  check_not_server_context(parent.frame())
+
   shiny::tags$div(
     shiny::textAreaInput("decode_text", "Hash to decode"),
     shiny::actionButton("decode", "Decode!"),
@@ -59,6 +61,7 @@ encoder_logic = function() {
 
 #' @export
 encoder_ui = function(inst=NULL, url=NULL) {
+  check_not_server_context(parent.frame())
 
   inst = paste(
     "If you have completed this learnr assignment and are happy with all of your",
@@ -94,12 +97,41 @@ wrapped_verbatim_text_output = function(outputId, placeholder = FALSE) {
   x
 }
 
-check_server_context = function(.envir = parent.frame()) {
-  if (
-    !inherits(.envir$input,   "reactivevalues") |
-    !inherits(.envir$output,  "shinyoutput")    |
-    !inherits(.envir$session, "ShinySession")
-  ) {
+
+
+is_server_context = function(.envir) {
+  # We are in the server context if there are the follow:
+  # * input - input reactive values
+  # * output - shiny output
+  # * session - shiny session
+  #
+  # Check context by examining the class of each of these.
+  # If any is missing then it will be a NULL which will fail.
+
+  inherits(.envir$input,   "reactivevalues") &
+  inherits(.envir$output,  "shinyoutput")    &
+  inherits(.envir$session, "ShinySession")
+}
+
+check_not_server_context = function(.envir) {
+  if (is_server_context(.envir)) {
+    calling_func = deparse(sys.calls()[[sys.nframe()-1]])
+
+    err = paste0(
+      "Function `", calling_func,"`",
+      " must *not* be called from an Rmd chunk where `context = \"server\"`"
+    )
+
+    # The following seems to be necessary - since this is in the server context
+    # it will not run at compile time
+    shiny::stopApp()
+
+    stop(err, call. = FALSE)
+  }
+}
+
+check_server_context = function(.envir) {
+  if (!is_server_context(.envir)) {
     calling_func = deparse(sys.calls()[[sys.nframe()-1]])
 
     err = paste0(
