@@ -9,36 +9,13 @@ tutorial:
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_chunk$set(exercise.checker = gradethis::grade_learnr)
-```
 
-
-```{r context = "server", echo = FALSE}
 options(tutorial.event_recorder = learnr:::debug_event_recorder)
-
-learnrhash::shiny_logic(input, output, session)
 ```
 
+## Question
 
-<!--End of submitr setup-->
-
-## Details
-
-```{r details}
-question_text(
-  "Student Identifier:",
-  answer(NULL, correct = TRUE),
-  incorrect = "Ok",
-  try_again_button = "Modify your answer",
-  allow_retry = TRUE
-)
-```
-
-
-## Fixed-response questions
-
-```{r planets}
+```{r planets, echo=FALSE}
 learnr::question(
   "Which planet do we live on?",
   answer("Mars",   correct = FALSE),
@@ -48,77 +25,17 @@ learnr::question(
 )
 ```
 
-## Multiple-response questions
+## Check State
 
-```{r not_a_planets}
-learnr::question(
-  "Which of the following are planets?",
-  answer("Mars",   correct = TRUE),
-  answer("Earth",  correct = TRUE),
-  answer("Saturn", correct = TRUE),
-  answer("Pluto",  correct = FALSE),
-  allow_retry = TRUE
-)
-```
-
-## Code
-
-```{r code, exercise=TRUE}
-1+1
-```
-
-## Code - gradethis
-
-```{r code2, exercise=TRUE}
-1+1
-```
-
-```{r code2-check}
-gradethis::grade_result(
-  gradethis::pass_if(~ TRUE, "Submitted!"),
-  glue_correct = "{.message}"
-)
-```
-
-## Submit
-
-```{r echo=FALSE}
-learnrhash::shiny_hash_ui()
-```
-
-
-```{r context='server', echo=FALSE}
-f = function(input, output, session) {
-  obj_txt = shiny::eventReactive(
-    input$hash_test_decode,
-    {
-      obj = learnrhash::decode_obj(input$hash_test)
-      txt = capture.output(print(str(obj)))
-      paste(txt, collapse="\n")
-    }
-  )
+```{r context="server"}
+shiny::observeEvent(input$get_state, {
+  objs = learnr:::get_all_state_objects(session)
+  objs = learnr:::submissions_from_state_objects(objs)
   
-  
-  output$hash_test_out = renderText(obj_txt())
-}
-
-f(input, output, session)
+  print(str(objs))
+})
 ```
 
-```{r}
-shiny::tags$br()
-shiny::tags$br()
-shiny::tags$br()
-shiny::tags$hr()
-shiny::tags$br()
-shiny::tags$br()
-shiny::tags$br()
-
-shiny::textAreaInput("hash_test", "Hash to decode")
-shiny::actionButton("hash_test_decode", "Decode!")
-shiny::tags$br()
-learnrhash:::wrapped_verbatim_text_output("hash_test_out")
-
+```{r state, ech=FALSE}
+shiny::actionButton("get_state", "Get State")
 ```
-
-
