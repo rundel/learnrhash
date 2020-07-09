@@ -30,7 +30,7 @@ learnrhash::encoder_logic()
 ```{r encode, echo=FALSE}
 learnrhash::encoder_ui()
 ```
-````
+``````
 which results in the Submit topic appearing in the tutorial with all of the necessary shiny logic and ui inserted, as shown below.
 ![](man/figures/submit.png)
 
