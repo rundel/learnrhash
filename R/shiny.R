@@ -1,3 +1,22 @@
+#' @rdname learnr_elements
+#' @name learnr_elements
+#'
+#' @title Learnr addon elements
+#'
+#' @description
+#' The following are addon element for learnr tutorials that enable the encoding and
+#' decoding of hashed learnr solutions.
+#'
+#' Note that when including these functions in a learnr Rmd document it is necessary that
+#' the logic functions, `*_logic()`, be included in an R chunk where `context="server"` as
+#' they interact with the underlying Shiny functionality. Conversely, any of the ui functions,
+#' `*_ui()`, must *not* be included in an R chunk with a `context`. Both types of functions
+#' have been written to provide useful feedback if they detect they are in the wrong R chunk
+#' type.
+#'
+NULL
+
+#' @rdname learnr_elements
 #' @export
 decoder_logic = function() {
   p = parent.frame()
@@ -11,16 +30,17 @@ decoder_logic = function() {
           hash = input$decode_text
         )
 
-        qu_tibble = learnrhash::extract_questions(d, hash)
+        qu_tibble = learnrhash::extract_questions(d, .data$hash)
         output$decode_questions = shiny::renderText(learnrhash:::obj_to_text(qu_tibble))
 
-        ex_tibble = learnrhash::extract_exercises(d, hash)
+        ex_tibble = learnrhash::extract_exercises(d, .data$hash)
         output$decode_exercises = shiny::renderText(learnrhash:::obj_to_text(ex_tibble))
       }
     )
   }, envir = p)
 }
 
+#' @rdname learnr_elements
 #' @export
 decoder_ui = function() {
   check_not_server_context(parent.frame())
@@ -38,6 +58,7 @@ decoder_ui = function() {
   )
 }
 
+#' @rdname learnr_elements
 #' @export
 encoder_logic = function() {
   p = parent.frame()
@@ -64,8 +85,12 @@ encoder_logic = function() {
   }, envir = p)
 }
 
+#' @rdname learnr_elements
+#'
+#' @param url Link url of the submission form being used.
+#'
 #' @export
-encoder_ui = function(inst=NULL, url=NULL) {
+encoder_ui = function(url = "http://localhost") {
   check_not_server_context(parent.frame())
 
   inst = paste(
@@ -73,14 +98,8 @@ encoder_ui = function(inst=NULL, url=NULL) {
     "solutions, please click the button below to generate your solution hash which",
     "you can submit at the following website:"
   )
-  url = "http://localhost"
 
   shiny::tags$div(
-    #shiny::tags$style(
-    #  type='text/css',
-    #  '#hash_output {white-space: pre-wrap;}'
-    #),
-    #style="align: center;",
     inst,
     shiny::tags$br(),
     shiny::tags$h3(
@@ -149,7 +168,7 @@ check_server_context = function(.envir) {
 }
 
 obj_to_text = function(obj) {
-  text = capture.output(print(obj))
+  text = utils::capture.output(print(obj))
 
   paste(text, collapse="\n")
 }

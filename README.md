@@ -123,6 +123,3 @@ included. Simply add the following lines into your Rmd,
     ```
 
 ![Decode solutions](man/figures/decode.gif)
-
-These lines should be removed from the document before posting the
-tutorial is distributed to students.
