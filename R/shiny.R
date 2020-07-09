@@ -93,10 +93,11 @@ encoder_logic = function() {
 encoder_ui = function(url = "http://localhost") {
   check_not_server_context(parent.frame())
 
+  # TODO - allow this to be dynamic (text, tags, etc.)
   inst = paste(
-    "If you have completed this learnr assignment and are happy with all of your",
-    "solutions, please click the button below to generate your solution hash which",
-    "you can submit at the following website:"
+    "If you have completed this tutorial and are happy with all of your",
+    "solutions, please click the button below to generate your hash and",
+    "submit it using the following link:"
   )
 
   shiny::tags$div(
