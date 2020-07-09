@@ -108,10 +108,10 @@ encoder_ui = function(url = "http://localhost") {
     ),
     shiny::tags$br(),
     shiny::actionButton("hash_generate", "Generate Submission"),
+    shiny::actionButton("hash_copy", "Copy"),
     shiny::tags$br(),
     shiny::tags$br(),
-    wrapped_verbatim_text_output("hash_output", TRUE),
-    shiny::actionButton("hash_copy", "Copy")
+    wrapped_verbatim_text_output("hash_output", TRUE)
   )
 }
 
