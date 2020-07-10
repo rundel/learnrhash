@@ -71,7 +71,12 @@ extract_exercises = function(df, hash, include_output = FALSE) {
       )
   } else {
     d = d %>%
-      tidyr::unnest_wider(.data$data) %>%
+      tidyr::hoist( # list columns
+        "data", "output", "feedback", .simplify = FALSE
+      ) %>%
+      tidyr::hoist( # vector columns
+        "data", "code", "checked"
+      ) %>%
       dplyr::select(-.data$type) %>%
       dplyr::rename(exercise_id = .data$id) %>%
       dplyr::relocate(
