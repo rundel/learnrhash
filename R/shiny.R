@@ -30,11 +30,22 @@ decoder_logic = function() {
           hash = input$decode_text
         )
 
-        qu_tibble = learnrhash::extract_questions(d, .data$hash)
-        output$decode_questions = shiny::renderText(learnrhash:::obj_to_text(qu_tibble))
+        qu_text = try(
+          learnrhash:::obj_to_text(learnrhash::extract_questions(d, .data$hash)),
+          silent = TRUE
+        )
 
-        ex_tibble = learnrhash::extract_exercises(d, .data$hash)
-        output$decode_exercises = shiny::renderText(learnrhash:::obj_to_text(ex_tibble))
+        ex_text = try(
+          learnrhash:::obj_to_text(learnrhash::extract_exercises(d, .data$hash)),
+          silent = TRUE
+        )
+
+        # Strip attributes if it is an error
+        attributes(qu_text) = NULL
+        attributes(ex_text) = NULL
+
+        output$decode_questions = shiny::renderText(qu_text)
+        output$decode_exercises = shiny::renderText(ex_text)
       }
     )
   }, envir = p)
