@@ -114,8 +114,9 @@ encoder_ui = function(url = "http://localhost") {
       ),
       shiny::column(width = 7),
       shiny::column(
-        width = 2,
-        shiny::actionButton("hash_copy", "Copy")
+        width = 2
+        # TODO - Turn off for now since shinyapps.io doesn't like clipr
+        #shiny::actionButton("hash_copy", "Copy")
       )
     ),
     shiny::tags$br(),
