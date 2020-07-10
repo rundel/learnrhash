@@ -107,9 +107,17 @@ encoder_ui = function(url = "http://localhost") {
       shiny::tags$a(url, href=url, target="_blank")
     ),
     shiny::tags$br(),
-    shiny::actionButton("hash_generate", "Generate Submission"),
-    shiny::actionButton("hash_copy", "Copy"),
-    shiny::tags$br(),
+    shiny::fixedRow(
+      shiny::column(
+        width = 3,
+        shiny::actionButton("hash_generate", "Generate Submission")
+      ),
+      shiny::column(width = 7),
+      shiny::column(
+        width = 2,
+        shiny::actionButton("hash_copy", "Copy")
+      )
+    ),
     shiny::tags$br(),
     wrapped_verbatim_text_output("hash_output", TRUE)
   )
