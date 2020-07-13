@@ -97,27 +97,46 @@ encoder_logic = function() {
 }
 
 #' @rdname learnr_elements
-#'
-#' @param url Link url of the submission form being used.
-#'
+#' @param url Link url to use.
 #' @export
-encoder_ui = function(url = "http://localhost") {
-  check_not_server_context(parent.frame())
-
-  # TODO - allow this to be dynamic (text, tags, etc.)
-  inst = paste(
+default_ui = function(url = "http://google.com") {
+  shiny::div(
     "If you have completed this tutorial and are happy with all of your",
     "solutions, please click the button below to generate your hash and",
-    "submit it using the following link:"
-  )
-
-  shiny::tags$div(
-    inst,
+    "submit it using the following link:",
     shiny::tags$br(),
     shiny::tags$h3(
       shiny::tags$a(url, href=url, target="_blank")
     ),
-    shiny::tags$br(),
+    shiny::tags$br()
+  )
+}
+
+#' @rdname learnr_elements
+#' @param src Source of the iframe.
+#' @param ... Other iframe attributes, e.g. height and width
+#' @export
+iframe_ui = function(src = "http://google.com", ...) {
+  shiny::div(
+    shiny::tags$iframe(src = src, ...),
+    shiny::tags$br()
+  )
+}
+
+#' @rdname learnr_elements
+#'
+#' @param ui_before Shiny ui elements to include before the hash ui
+#' @param ui_after Shiny ui elements to include after the hash ui,
+#'
+#' @details For either of the ui parameters you can wrap multiple
+#' shiny elements together with `shiny::div`.
+#'
+#' @export
+encoder_ui = function(ui_before = default_ui(), ui_after = NULL) {
+  check_not_server_context(parent.frame())
+
+  shiny::tags$div(
+    ui_before,
     shiny::fixedRow(
       shiny::column(
         width = 3,
@@ -131,7 +150,9 @@ encoder_ui = function(url = "http://localhost") {
       )
     ),
     shiny::tags$br(),
-    wrapped_verbatim_text_output("hash_output", TRUE)
+    wrapped_verbatim_text_output("hash_output", TRUE),
+    shiny::tags$br(),
+    ui_after
   )
 }
 

@@ -5,6 +5,8 @@
 \alias{decoder_logic}
 \alias{decoder_ui}
 \alias{encoder_logic}
+\alias{default_ui}
+\alias{iframe_ui}
 \alias{encoder_ui}
 \title{Learnr addon elements}
 \usage{
@@ -14,10 +16,22 @@ decoder_ui()
 
 encoder_logic()
 
-encoder_ui(url = "http://localhost")
+default_ui(url = "http://google.com")
+
+iframe_ui(src = "http://google.com", ...)
+
+encoder_ui(ui_before = default_ui(), ui_after = NULL)
 }
 \arguments{
-\item{url}{Link url of the submission form being used.}
+\item{url}{Link url to use.}
+
+\item{src}{Source of the iframe.}
+
+\item{...}{Other iframe attributes, e.g. height and width}
+
+\item{ui_before}{Shiny ui elements to include before the hash ui}
+
+\item{ui_after}{Shiny ui elements to include after the hash ui,}
 }
 \description{
 The following are addon element for learnr tutorials that enable the encoding and
@@ -29,4 +43,8 @@ they interact with the underlying Shiny functionality. Conversely, any of the ui
 \verb{*_ui()}, must \emph{not} be included in an R chunk with a \code{context}. Both types of functions
 have been written to provide useful feedback if they detect they are in the wrong R chunk
 type.
+}
+\details{
+For either of the ui parameters you can wrap multiple
+shiny elements together with \code{shiny::div}.
 }
