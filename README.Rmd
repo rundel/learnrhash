@@ -77,7 +77,7 @@ Simply add the following lines into your Rmd,
 learnrhash::decoder_logic()
 ```
 
-`r ''````{r encode, echo=FALSE}
+`r ''````{r decode, echo=FALSE}
 learnrhash::decoder_ui()
 ```
 ````
