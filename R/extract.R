@@ -35,7 +35,6 @@ fix_empty_state_obj = function(obj) {
   }
 }
 
-# TODO - put in handling for a bad decode, either here or in the shiny bit
 #' @rdname extract
 #' @export
 extract_hash = function(df, hash) {

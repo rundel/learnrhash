@@ -23,10 +23,16 @@ decode_obj = function(txt, compress = c("bzip2", "gzip", "xz", "none")) {
   if (txt == "")
     return(list())
 
-  compress = match.arg(compress)
+  res = try({
+    compress = match.arg(compress)
 
-  comp_raw = base64enc::base64decode(txt)
-  raw = memDecompress(comp_raw, type = compress)
+    comp_raw = base64enc::base64decode(txt)
+    raw = memDecompress(comp_raw, type = compress)
+    unserialize(raw)
+  }, silent = TRUE)
 
-  unserialize(raw)
+  if (inherits("try-error"))
+    res = list()
+
+  res
 }
