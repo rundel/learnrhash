@@ -4,4 +4,4 @@
 
 * Added a `NEWS.md` file to track changes to the package.
 
-* Added `strip_html_output` argument to `encoder_logic` to help keep hash sizes down.
+* Added `strip_output` argument to `encoder_logic` to help keep hash sizes down.

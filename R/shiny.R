@@ -71,14 +71,18 @@ decoder_ui = function() {
 
 #' @rdname learnr_elements
 #'
-#' @param strip_html_output Exercises save their output as html, for exercises
+#' @param strip_output Exercises save their output as html, for exercises
 #' that result in plots these can result in very large hashes. The option allows
 #' this information to be removed to keep hash sizes more manageable.
 #'
 #' @export
-encoder_logic = function(strip_html_output = FALSE) {
+encoder_logic = function(strip_output = FALSE) {
   p = parent.frame()
   check_server_context(p)
+
+  # Make this var available within the local context below
+  assign("strip_output", strip_output, envir = p)
+
 
   # Evaluate in parent frame to get input, output, and session
   local({
@@ -88,12 +92,14 @@ encoder_logic = function(strip_html_output = FALSE) {
         objs = learnr:::get_all_state_objects(session)
         objs = learnr:::submissions_from_state_objects(objs)
 
-        if (strip_html_output) {
+        if (strip_output) {
           objs = purrr::map(
             objs,
             function(x) {
-              if (x$type == "exercise_submission" & !is.null(x$data$output$html))
-                x$data$output$html = NA_character_
+              if (x$type == "exercise_submission" & !is.null(x$data$output))
+                x$data$output = list()
+
+              x
             }
           )
         }
