@@ -14,7 +14,7 @@ decoder_logic()
 
 decoder_ui()
 
-encoder_logic()
+encoder_logic(strip_html_output = FALSE)
 
 default_ui(url = "http://google.com")
 
@@ -23,6 +23,10 @@ iframe_ui(src = "http://google.com", ...)
 encoder_ui(ui_before = default_ui(), ui_after = NULL)
 }
 \arguments{
+\item{strip_html_output}{Exercises save their output as html, for exercises
+that result in plots these can result in very large hashes. The option allows
+this information to be removed to keep hash sizes more manageable.}
+
 \item{url}{Link url to use.}
 
 \item{src}{Source of the iframe.}

@@ -70,8 +70,13 @@ decoder_ui = function() {
 }
 
 #' @rdname learnr_elements
+#'
+#' @param strip_html_output Exercises save their output as html, for exercises
+#' that result in plots these can result in very large hashes. The option allows
+#' this information to be removed to keep hash sizes more manageable.
+#'
 #' @export
-encoder_logic = function() {
+encoder_logic = function(strip_html_output = FALSE) {
   p = parent.frame()
   check_server_context(p)
 
@@ -82,6 +87,16 @@ encoder_logic = function() {
       {
         objs = learnr:::get_all_state_objects(session)
         objs = learnr:::submissions_from_state_objects(objs)
+
+        if (strip_html_output) {
+          objs = purrr::map(
+            objs,
+            function(x) {
+              if (x$type == "exercise_submission" & !is.null(x$data$output$html))
+                x$data$output$html = NA_character_
+            }
+          )
+        }
 
         learnrhash::encode_obj(objs)
       }
