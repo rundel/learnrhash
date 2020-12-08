@@ -39,7 +39,7 @@ fix_empty_state_obj = function(obj) {
 #' @export
 extract_hash = function(df, hash) {
   df %>%
-    dplyr::rename(hash = {{hash}}) %>%
+    #dplyr::rename(hash = {{hash}}) %>%
     dplyr::mutate(
       hash = lapply(hash, learnrhash::decode_obj),
       hash = lapply(hash, fix_empty_state_obj)
