@@ -1,11 +1,20 @@
 Package: learnrhash
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tools for hashing learnr sessions
 Version: 0.1.0.9000
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: 
+    c(person(given = "Colin",
+             family = "Rundel",
+             role = c("aut", "cre"),
+             email = "rundel@gmail.com"),
+      person(given = "Mine",
+             family = "Cetinkaya-Rundel",
+             role = "aut",
+             email = "mine@rstudio.com")
+    )
+Description: This package provides tools for the hashing of learnr sessions.
+    The resulting hashes are presented as base64 encoded strings which can easily 
+    be copied into a web form, LMS submission tool, etc.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
