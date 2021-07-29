@@ -26,26 +26,29 @@ decoder_logic = function() {
     shiny::observeEvent(
       input$decode,
       {
-        d = tibble::tibble(
-          hash = input$decode_text
+        output$decode_submissions <- shiny::renderText(
+          learnrhash:::obj_to_text(learnrhash::decode_obj(input$decode_text))
         )
-
-        qu_text = try(
-          learnrhash:::obj_to_text(learnrhash::extract_questions(d, .data$hash)),
-          silent = TRUE
-        )
-
-        ex_text = try(
-          learnrhash:::obj_to_text(learnrhash::extract_exercises(d, .data$hash)),
-          silent = TRUE
-        )
-
-        # Strip attributes if it is an error
-        attributes(qu_text) = NULL
-        attributes(ex_text) = NULL
-
-        output$decode_questions = shiny::renderText(qu_text)
-        output$decode_exercises = shiny::renderText(ex_text)
+        # d = tibble::tibble(
+        #   hash = input$decode_text
+        # )
+        #
+        # qu_text = try(
+        #   learnrhash:::obj_to_text(learnrhash::extract_questions(d, .data$hash)),
+        #   silent = TRUE
+        # )
+        #
+        # ex_text = try(
+        #   learnrhash:::obj_to_text(learnrhash::extract_exercises(d, .data$hash)),
+        #   silent = TRUE
+        # )
+        #
+        # # Strip attributes if it is an error
+        # attributes(qu_text) = NULL
+        # attributes(ex_text) = NULL
+        #
+        # output$decode_questions = shiny::renderText(qu_text)
+        # output$decode_exercises = shiny::renderText(ex_text)
       }
     )
   }, envir = p)
@@ -61,11 +64,13 @@ decoder_ui = function() {
     shiny::actionButton("decode", "Decode!"),
     shiny::tags$br(),
     shiny::tags$br(),
-    shiny::tags$h4("Questions:"),
-    wrapped_verbatim_text_output("decode_questions"),
-    shiny::tags$br(),
-    shiny::tags$h4("Exercises:"),
-    wrapped_verbatim_text_output("decode_exercises")
+    shiny::tags$h4("Submission:"),
+    wrapped_verbatim_text_output("decode_submissions")
+    # shiny::tags$h4("Questions:"),
+    # wrapped_verbatim_text_output("decode_questions"),
+    # shiny::tags$br(),
+    # shiny::tags$h4("Exercises:"),
+    # wrapped_verbatim_text_output("decode_exercises")
   )
 }
 
@@ -89,22 +94,20 @@ encoder_logic = function(strip_output = FALSE) {
     encoded_txt = shiny::eventReactive(
       input$hash_generate,
       {
-        objs = learnr:::get_all_state_objects(session)
-        objs = learnr:::submissions_from_state_objects(objs)
+        # shiny::getDefaultReactiveDomain()$userData$tutorial_state
+        state <- shiny::reactiveValuesToList(learnr:::get_tutorial_state())
+        shiny::validate(shiny::need(length(state) > 0, "No progress yet."))
 
-        if (strip_output) {
-          objs = purrr::map(
-            objs,
-            function(x) {
-              if (x$type == "exercise_submission" & !is.null(x$data$output))
-                x$data$output = list()
+        user_state <- purrr::map_dfr(state, identity, .id = "label") %>%
+          dplyr::group_by(.data$label, .data$type, .data$correct) %>%
+          dplyr::summarize(
+            answer = list(.data$answer),
+            timestamp = dplyr::first(.data$timestamp),
+            .groups = "drop"
+          ) %>%
+          dplyr::relocate(.data$correct, .before = .data$timestamp)
 
-              x
-            }
-          )
-        }
-
-        learnrhash::encode_obj(objs)
+        learnrhash::encode_obj(user_state)
       }
     )
 
