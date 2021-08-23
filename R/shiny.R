@@ -73,14 +73,15 @@ encoder_logic = function(strip_output = FALSE) {
         state = shiny::reactiveValuesToList(learnr:::get_tutorial_state())
         shiny::validate(shiny::need(length(state) > 0, "No progress yet."))
 
-        user_state = purrr::map_dfr(state, identity, .id = "label") %>%
-          dplyr::group_by(.data$label, .data$type, .data$correct) %>%
-          dplyr::summarize(
-            answer = list(.data$answer),
-            timestamp = dplyr::first(.data$timestamp),
-            .groups = "drop"
-          ) %>%
-          dplyr::relocate(.data$correct, .before = .data$timestamp)
+        user_state = purrr::map_dfr(state, identity, .id = "label")
+        user_state = dplyr::group_by(user_state, .data$label, .data$type, .data$correct)
+        user_state = dplyr::summarize(
+          user_state,
+          answer = list(.data$answer),
+          timestamp = dplyr::first(.data$timestamp),
+          .groups = "drop"
+        )
+        user_state = dplyr::relocate(user_state, .data$correct, .before = .data$timestamp)
 
         learnrhash::encode_obj(user_state)
       }
