@@ -17,8 +17,6 @@
 #' @param include_output Logical. Should the exercises' code output be included.
 #' @param include_text Logical. Should the questions' text be included.
 #'
-#' @importFrom rlang .data
-#' @importFrom dplyr `%>%`
 NULL
 
 fix_empty_state_obj = function(obj) {

@@ -3,19 +3,18 @@ title: "learnrhash - Minimal"
 output: learnr::tutorial
 runtime: shiny_prerendered
 tutorial:
-  id: "demo-minimal"
+  id: "demo-iframe"
   version: 1.0
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
-#options(tutorial.event_recorder = learnr:::debug_event_recorder)
 ```
 
 ## Question
 
 ```{r planets, echo=FALSE}
-learnr::question(
+question(
   "Which planet do we live on?",
   answer("Mars",   correct = FALSE),
   answer("Earth",  correct = TRUE),
@@ -29,6 +28,8 @@ learnr::question(
 ```{r context="server"}
 learnrhash::encoder_logic()
 ```
+
+Note the following may not show in RStudio's viewer, try opening it in your browser to see the full iframe.
 
 ```{r encode, echo=FALSE}
 learnrhash::encoder_ui(
