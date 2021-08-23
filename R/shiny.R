@@ -26,29 +26,9 @@ decoder_logic = function() {
     shiny::observeEvent(
       input$decode,
       {
-        output$decode_submissions <- shiny::renderText(
+        output$decode_submissions = shiny::renderText(
           learnrhash:::obj_to_text(learnrhash::decode_obj(input$decode_text))
         )
-        # d = tibble::tibble(
-        #   hash = input$decode_text
-        # )
-        #
-        # qu_text = try(
-        #   learnrhash:::obj_to_text(learnrhash::extract_questions(d, .data$hash)),
-        #   silent = TRUE
-        # )
-        #
-        # ex_text = try(
-        #   learnrhash:::obj_to_text(learnrhash::extract_exercises(d, .data$hash)),
-        #   silent = TRUE
-        # )
-        #
-        # # Strip attributes if it is an error
-        # attributes(qu_text) = NULL
-        # attributes(ex_text) = NULL
-        #
-        # output$decode_questions = shiny::renderText(qu_text)
-        # output$decode_exercises = shiny::renderText(ex_text)
       }
     )
   }, envir = p)
@@ -66,11 +46,6 @@ decoder_ui = function() {
     shiny::tags$br(),
     shiny::tags$h4("Submission:"),
     wrapped_verbatim_text_output("decode_submissions")
-    # shiny::tags$h4("Questions:"),
-    # wrapped_verbatim_text_output("decode_questions"),
-    # shiny::tags$br(),
-    # shiny::tags$h4("Exercises:"),
-    # wrapped_verbatim_text_output("decode_exercises")
   )
 }
 
@@ -95,10 +70,10 @@ encoder_logic = function(strip_output = FALSE) {
       input$hash_generate,
       {
         # shiny::getDefaultReactiveDomain()$userData$tutorial_state
-        state <- shiny::reactiveValuesToList(learnr:::get_tutorial_state())
+        state = shiny::reactiveValuesToList(learnr:::get_tutorial_state())
         shiny::validate(shiny::need(length(state) > 0, "No progress yet."))
 
-        user_state <- purrr::map_dfr(state, identity, .id = "label") %>%
+        user_state = purrr::map_dfr(state, identity, .id = "label") %>%
           dplyr::group_by(.data$label, .data$type, .data$correct) %>%
           dplyr::summarize(
             answer = list(.data$answer),
@@ -113,10 +88,6 @@ encoder_logic = function(strip_output = FALSE) {
 
     output$hash_output = shiny::renderText(encoded_txt())
 
-
-    shiny::observeEvent(input$hash_copy, {
-      clipr::write_clip(encoded_txt(), allow_non_interactive = TRUE)
-    })
   }, envir = p)
 }
 
