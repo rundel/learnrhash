@@ -19,7 +19,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    learnr,
+    learnr (> 0.10.1),
     shiny,
     base64enc,
     dplyr,
