@@ -29,7 +29,7 @@ learnr::question(
 shiny::observeEvent(
   input$get_state, 
   {
-    objs = shiny::reactiveValuesToList(learnr:::get_tutorial_state())
+    objs = learnr:::get_tutorial_state()
   
     output$state = shiny::renderText(
       paste(

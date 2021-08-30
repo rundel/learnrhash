@@ -70,7 +70,7 @@ encoder_logic = function(strip_output = FALSE) {
       input$hash_generate,
       {
         # shiny::getDefaultReactiveDomain()$userData$tutorial_state
-        state = shiny::reactiveValuesToList(learnr:::get_tutorial_state())
+        state = learnr:::get_tutorial_state()
         shiny::validate(shiny::need(length(state) > 0, "No progress yet."))
 
         user_state = purrr::map_dfr(state, identity, .id = "label")
