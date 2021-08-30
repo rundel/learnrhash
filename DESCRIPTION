@@ -27,7 +27,8 @@ Imports:
     purrr,
     clipr,
     rlang,
-    tibble
+    tibble,
+    magrittr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
