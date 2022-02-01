@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,18 +35,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">learnrhash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -64,23 +60,23 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="learnrhash" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#learnrhash" class="anchor"></a>learnrhash</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="learnrhash">learnrhash<a class="anchor" aria-label="anchor" href="#learnrhash"></a>
+</h1></div>
 <!-- badges: start -->
 
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>This package is still in the early stages of development and currently is only available from GitHub. To install the development version run the following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rundel/learnrhash"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<p>This package is meant to provide addition tools for collection student answers to <a href="https://rstudio.github.io/learnr/">learnr</a> tutorials. The package does not transmit the answers in any way, but instead provides a convenient method to generate a compressed text based representation that can be easily copied and pasted. The students can then submit these solutions by pasting this “hash” into an online web form (e.g. Google Forms, Microsoft Forms, etc.) or a learning management system quiz or assignment tool.</p>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>This package is meant to provide addition tools for collection student answers to <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. The package does not transmit the answers in any way, but instead provides a convenient method to generate a compressed text based representation that can be easily copied and pasted. The students can then submit these solutions by pasting this “hash” into an online web form (e.g. Google Forms, Microsoft Forms, etc.) or a learning management system quiz or assignment tool.</p>
 <p>To enable this functionality, all you need to do is include the following in a learnr Rmd document:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Submit</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -92,92 +88,124 @@
 <span id="cb2-8"><a href="#cb2-8"></a><span class="dt">learnrhash::encoder_ui()</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a><span class="st">```</span></span></code></pre></div>
 <p>which results in the Submit topic appearing in the tutorial with all of the necessary shiny logic and ui inserted, as shown below.</p>
-<p><img src="reference/figures/encode.gif" alt="Encode solutions"></p>
-<p>In the example above a url for <a href="http://localhost" class="uri">http://localhost</a> given, this value can be replaced with whatever link you would like to use for submission. All the students will need to do is to paste the generated hash into a text response field on whatever web form you choose to use.</p>
+<div class="figure">
+<img src="reference/figures/encode.gif" alt=""><p class="caption">Encode solutions</p>
 </div>
-<div id="working-with-hashes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#working-with-hashes" class="anchor"></a>Working with Hashes</h2>
+<p>In the example above a url for <a href="http://localhost" class="external-link uri">http://localhost</a> given, this value can be replaced with whatever link you would like to use for submission. All the students will need to do is to paste the generated hash into a text response field on whatever web form you choose to use.</p>
+</div>
+<div class="section level2">
+<h2 id="working-with-hashes">Working with Hashes<a class="anchor" aria-label="anchor" href="#working-with-hashes"></a>
+</h2>
 <p>The expectation is that after students submit their solutions you will be able to obtain some tabular representation of these results that can be read into R as a data frame. The package includes a simple example of this type of data which is loaded as follows</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"example.rds"</span>, package<span class="op">=</span><span class="st">"learnrhash"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">example</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example.rds"</span>, package<span class="op">=</span><span class="st">"learnrhash"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">example</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## # A tibble: 2 x 3</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## # A tibble: 2 × 3</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">##   student student_id hash                                                       </span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                                                      </span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">## 1 Colin        20000 QlpoOTFBWSZTWeVuJ2oAA0d/gP/7aAhoC7BViyIOyr/v/+BAAcACsAS7C1…</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="co">## 2 Mine         10000 QlpoOTFBWSZTWYeyPVYAA0x/gP/7aAhoC7BVgyIOyr/v/+BAAcACsAdqC1…</span></span></code></pre></div>
 <p>Currently the package provides two functions for extracting question solutions and exercise solutions from these hashed data, for both functions the only required argument is the name of the column containing the hashed solutions</p>
-<p>To extract the questions,</p>
+<p>To extract the all submissions use,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_questions</a></span><span class="op">(</span><span class="va">example</span>, <span class="va">hash</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## # A tibble: 6 x 6</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">##   student student_id correct question_id   question_text                answer  </span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt;   &lt;chr&gt;         &lt;chr&gt;                        &lt;list&gt;  </span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">## 1 Colin        20000 FALSE   details       Student Identifier:          &lt;chr [1…</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">## 2 Colin        20000 FALSE   not_a_planets Which of the following are … &lt;chr [2…</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">## 3 Colin        20000 TRUE    planets       Which planet do we live on?  &lt;chr [1…</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">## 4 Mine         10000 FALSE   details       Student Identifier:          &lt;chr [1…</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">## 5 Mine         10000 TRUE    not_a_planets Which of the following are … &lt;chr [3…</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">## 6 Mine         10000 TRUE    planets       Which planet do we live on?  &lt;chr [1…</span></span></code></pre></div>
-<p>To extract the exercises,</p>
+<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_hash</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## # A tibble: 10 × 5</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">##    student student_id id            type                data            </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">##    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;               &lt;list&gt;          </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">##  1 Colin        20000 code          exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">##  2 Colin        20000 code2         exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">##  3 Colin        20000 details       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">##  4 Colin        20000 not_a_planets question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">##  5 Colin        20000 planets       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">##  6 Mine         10000 code          exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">##  7 Mine         10000 code2         exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">##  8 Mine         10000 details       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">##  9 Mine         10000 not_a_planets question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">## 10 Mine         10000 planets       question_submission &lt;named list [4]&gt;</span></span></code></pre></div>
+<p>and to get just the exercises,</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_exercises</a></span><span class="op">(</span><span class="va">example</span>, <span class="va">hash</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## # A tibble: 4 x 7</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">##   student student_id exercise_id code      feedback         checked correct</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;list&gt;           &lt;lgl&gt;   &lt;lgl&gt;  </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">## 1 Colin        20000 code        "1+1\n\n" &lt;NULL&gt;           FALSE   NA     </span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">## 2 Colin        20000 code2       "1+1\n\n" &lt;named list [4]&gt; TRUE    TRUE   </span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## 3 Mine         10000 code        "1+1\n\n" &lt;NULL&gt;           FALSE   NA     </span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">## 4 Mine         10000 code2       "1+1\n\n" &lt;named list [4]&gt; TRUE    TRUE</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_exercises</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## # A tibble: 4 × 5</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">##   student student_id id    type                data            </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;               &lt;list&gt;          </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">## 1 Colin        20000 code  exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">## 2 Colin        20000 code2 exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## 3 Mine         10000 code  exercise_submission &lt;named list [4]&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">## 4 Mine         10000 code2 exercise_submission &lt;named list [4]&gt;</span></span></code></pre></div>
+<p>or questions,</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_questions</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## # A tibble: 6 × 5</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">##   student student_id id            type                data            </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;               &lt;list&gt;          </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## 1 Colin        20000 details       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">## 2 Colin        20000 not_a_planets question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">## 3 Colin        20000 planets       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">## 4 Mine         10000 details       question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">## 5 Mine         10000 not_a_planets question_submission &lt;named list [4]&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">## 6 Mine         10000 planets       question_submission &lt;named list [4]&gt;</span></span></code></pre></div>
 <p>If you would like to experiment with this decoding and extraction while writing your tutorial you can also include decoding logic and ui elements into the tutorial in a similar way that the encoder was included. Simply add the following lines into your Rmd,</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## Decode</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">```</span><span class="dt">{r context="server"}</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="dt">learnrhash::decoder_logic()</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">```</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="st">```</span><span class="dt">{r encode, echo=FALSE}</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="dt">learnrhash::decoder_ui()</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="st">```</span></span></code></pre></div>
-<p><img src="reference/figures/decode.gif" alt="Decode solutions"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## Decode</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">```</span><span class="dt">{r context="server"}</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="dt">learnrhash::decoder_logic()</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">```</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="st">```</span><span class="dt">{r encode, echo=FALSE}</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="dt">learnrhash::decoder_ui()</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="st">```</span></span></code></pre></div>
+<div class="figure">
+<img src="reference/figures/decode.gif" alt=""><p class="caption">Decode solutions</p>
+</div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing learnrhash</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Colin Rundel <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Mine Cetinkaya-Rundel <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/rundel/learnrhash/actions"><img src="https://github.com/rundel/learnrhash/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/rundel/learnrhash/actions" class="external-link"><img src="https://github.com/rundel/learnrhash/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Colin Rundel, Mine Cetinkaya-Rundel.</p>
+  <p></p>
+<p>Developed by Colin Rundel, Mine Cetinkaya-Rundel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -185,6 +213,8 @@
 
   
 
+
+  
 
   </body>
 </html>
