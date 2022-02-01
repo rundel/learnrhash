@@ -7,16 +7,16 @@
 \alias{extract_questions}
 \title{Extract hash contents}
 \usage{
-extract_hash(df, hash)
+extract_hash(df, hash = "hash")
 
-extract_exercises(df, hash)
+extract_exercises(df, hash = "hash")
 
-extract_questions(df, hash)
+extract_questions(df, hash = "hash")
 }
 \arguments{
-\item{df}{A data frame containing the hashes}
+\item{df}{Data Frame. A data frame containing hash in a character column.}
 
-\item{hash}{The name of the column containing the hashes}
+\item{hash}{Character. The name of the column containing the hashes}
 }
 \description{
 The following are helper functions for extracting data from hashed learnr solutions.

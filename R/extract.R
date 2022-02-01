@@ -12,8 +12,8 @@
 #'
 #' * `extract_exercises` - extracts the contents of the hashes for answered exercises.
 #'
-#' @param df A data frame containing the hashes
-#' @param hash The name of the column containing the hashes
+#' @param df Data Frame. A data frame containing hash in a character column.
+#' @param hash Character. The name of the column containing the hashes
 #'
 NULL
 
@@ -21,9 +21,9 @@ fix_empty_state_obj = function(obj) {
   if (length(obj) == 0) {
     list(
       list(
+        id = NA_character_,
         type = NA_character_,
-        data = NULL,
-        id = NA_character_
+        data = NULL
       )
     )
   } else {
@@ -33,25 +33,33 @@ fix_empty_state_obj = function(obj) {
 
 #' @rdname extract
 #' @export
-extract_hash = function(df, hash) {
-  df %>%
-    dplyr::rename(hash = {{hash}}) %>%
+extract_hash = function(df, hash = "hash") {
+  d = df %>%
+    dplyr::rename(hash = .data[[hash]]) %>%
     dplyr::mutate(
-      hash = lapply(hash, learnrhash::decode_obj)
+      hash = lapply(.data[[hash]], learnrhash::decode_obj),
+      hash = lapply(.data[[hash]], fix_empty_state_obj)
     ) %>%
-    tidyr::unnest(hash)
+    tidyr::unnest_longer(.data[[hash]]) %>%
+    tidyr::unnest_wider(.data[[hash]]) %>%
+    dplyr::relocate(.data[["id"]], .before="type")
+
+  if (is.null(d[["data"]]))
+    d$data = list(NULL)
+
+  d
 }
 
 #' @rdname extract
 #' @export
-extract_exercises = function(df, hash) {
+extract_exercises = function(df, hash = "hash") {
   extract_hash(df, hash) %>%
-    dplyr::filter(type == "exercise")
+    dplyr::filter(.data[["type"]] == "exercise_submission")
 }
 
 #' @rdname extract
 #' @export
-extract_questions = function(df, hash) {
+extract_questions = function(df, hash = "hash") {
   extract_hash(df, hash) %>%
-    dplyr::filter(type == "question")
+    dplyr::filter(.data[["type"]] == "question_submission")
 }

@@ -9,13 +9,13 @@ test_that("test extract w/ good data", {
   )
 
 
-  all = extract_hash(df, hash)
-  qs = extract_questions(df, hash)
-  exs = extract_exercises(df, hash)
+  all = extract_hash(df, "hash")
+  qs = extract_questions(df, "hash")
+  exs = extract_exercises(df, "hash")
 
   expect_equal(dim(all), c(10,5))
-  expect_equal(dim(qs), c(6,6))
-  expect_equal(dim(exs), c(4,7))
+  expect_equal(dim(qs), c(6,5))
+  expect_equal(dim(exs), c(4,5))
 })
 
 test_that("test extract w/ blank entry", {
@@ -28,44 +28,44 @@ test_that("test extract w/ blank entry", {
   )
 
 
-  all = extract_hash(df, hash)
-  qs = extract_questions(df, hash)
-  exs = extract_exercises(df, hash)
+  all = extract_hash(df, "hash")
+  qs = extract_questions(df, "hash")
+  exs = extract_exercises(df, "hash")
 
   expect_equal(dim(all), c(11,5)) # Bad shows up with NAs and NULLs
-  expect_equal(dim(qs), c(6,6))   # Dropped since no answers here
-  expect_equal(dim(exs), c(4,7))
+  expect_equal(dim(qs), c(6,5))   # Dropped since no answers here
+  expect_equal(dim(exs), c(4,5))
 })
 
 
 test_that("test extract w/ empty data", {
   df = tibble::tibble(
     student = "Colin",
+    student_id = 20000,
     hash = encode_obj(list())
   )
 
-  all = extract_hash(df)
-  qs = extract_questions(df)
-  exs = extract_exercises(df)
+  all = extract_hash(df, "hash")
+  qs = extract_questions(df, "hash")
+  exs = extract_exercises(df, "hash")
 
-  expect_equal(nrow(all), 1)
-  expect_true(all(c("student", "type", "id") %in% names(all)))
+  expect_equal(dim(all), c(1,5))
+  expect_true(all(c("student","student_id", "id", "type", "data") == names(all)))
 
 
   df2 = tibble::tibble(
     student = c("Colin", "Mine"),
+    student_id = c(20000, 10000),
     hash = encode_obj(list())
   )
 
-  all2 = extract_hash(df2)
-  qs2 = extract_questions(df2)
-  exs2 = extract_exercises(df2)
+  all2 = extract_hash(df2, "hash")
+  qs2 = extract_questions(df2, "hash")
+  exs2 = extract_exercises(df2, "hash")
 
 
-  expect_equal(nrow(all2), 2)
-  expect_true(all(c("student", "type", "id") %in% names(all2)))
-
-
+  expect_equal(dim(all2), c(2,5))
+  expect_true(all(c("student","student_id", "id", "type", "data") == names(all2)))
 })
 
 
