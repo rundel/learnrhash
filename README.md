@@ -35,11 +35,11 @@ To enable this functionality, all you need to do is include the
 following in a learnr Rmd document:
 
     ## Submit
-    
+
     ```{r context="server"}
     learnrhash::encoder_logic()
     ```
-    
+
     ```{r encode, echo=FALSE}
     learnrhash::encoder_ui()
     ```
@@ -66,7 +66,7 @@ example = readRDS(system.file("example.rds", package="learnrhash"))
 example
 ```
 
-    ## # A tibble: 2 x 3
+    ## # A tibble: 2 × 3
     ##   student student_id hash                                                       
     ##   <chr>        <dbl> <chr>                                                      
     ## 1 Colin        20000 QlpoOTFBWSZTWeVuJ2oAA0d/gP/7aAhoC7BViyIOyr/v/+BAAcACsAS7C1…
@@ -77,35 +77,55 @@ solutions and exercise solutions from these hashed data, for both
 functions the only required argument is the name of the column
 containing the hashed solutions
 
-To extract the questions,
+To extract the all submissions use,
 
 ``` r
-learnrhash::extract_questions(example, hash)
+learnrhash::extract_hash(example)
 ```
 
-    ## # A tibble: 6 x 6
-    ##   student student_id correct question_id   question_text                answer  
-    ##   <chr>        <dbl> <lgl>   <chr>         <chr>                        <list>  
-    ## 1 Colin        20000 FALSE   details       Student Identifier:          <chr [1…
-    ## 2 Colin        20000 FALSE   not_a_planets Which of the following are … <chr [2…
-    ## 3 Colin        20000 TRUE    planets       Which planet do we live on?  <chr [1…
-    ## 4 Mine         10000 FALSE   details       Student Identifier:          <chr [1…
-    ## 5 Mine         10000 TRUE    not_a_planets Which of the following are … <chr [3…
-    ## 6 Mine         10000 TRUE    planets       Which planet do we live on?  <chr [1…
+    ## # A tibble: 10 × 5
+    ##    student student_id id            type                data            
+    ##    <chr>        <dbl> <chr>         <chr>               <list>          
+    ##  1 Colin        20000 code          exercise_submission <named list [4]>
+    ##  2 Colin        20000 code2         exercise_submission <named list [4]>
+    ##  3 Colin        20000 details       question_submission <named list [4]>
+    ##  4 Colin        20000 not_a_planets question_submission <named list [4]>
+    ##  5 Colin        20000 planets       question_submission <named list [4]>
+    ##  6 Mine         10000 code          exercise_submission <named list [4]>
+    ##  7 Mine         10000 code2         exercise_submission <named list [4]>
+    ##  8 Mine         10000 details       question_submission <named list [4]>
+    ##  9 Mine         10000 not_a_planets question_submission <named list [4]>
+    ## 10 Mine         10000 planets       question_submission <named list [4]>
 
-To extract the exercises,
+and to get just the exercises,
 
 ``` r
-learnrhash::extract_exercises(example, hash)
+learnrhash::extract_exercises(example)
 ```
 
-    ## # A tibble: 4 x 7
-    ##   student student_id exercise_id code      feedback         checked correct
-    ##   <chr>        <dbl> <chr>       <chr>     <list>           <lgl>   <lgl>  
-    ## 1 Colin        20000 code        "1+1\n\n" <NULL>           FALSE   NA     
-    ## 2 Colin        20000 code2       "1+1\n\n" <named list [4]> TRUE    TRUE   
-    ## 3 Mine         10000 code        "1+1\n\n" <NULL>           FALSE   NA     
-    ## 4 Mine         10000 code2       "1+1\n\n" <named list [4]> TRUE    TRUE
+    ## # A tibble: 4 × 5
+    ##   student student_id id    type                data            
+    ##   <chr>        <dbl> <chr> <chr>               <list>          
+    ## 1 Colin        20000 code  exercise_submission <named list [4]>
+    ## 2 Colin        20000 code2 exercise_submission <named list [4]>
+    ## 3 Mine         10000 code  exercise_submission <named list [4]>
+    ## 4 Mine         10000 code2 exercise_submission <named list [4]>
+
+or questions,
+
+``` r
+learnrhash::extract_questions(example)
+```
+
+    ## # A tibble: 6 × 5
+    ##   student student_id id            type                data            
+    ##   <chr>        <dbl> <chr>         <chr>               <list>          
+    ## 1 Colin        20000 details       question_submission <named list [4]>
+    ## 2 Colin        20000 not_a_planets question_submission <named list [4]>
+    ## 3 Colin        20000 planets       question_submission <named list [4]>
+    ## 4 Mine         10000 details       question_submission <named list [4]>
+    ## 5 Mine         10000 not_a_planets question_submission <named list [4]>
+    ## 6 Mine         10000 planets       question_submission <named list [4]>
 
 If you would like to experiment with this decoding and extraction while
 writing your tutorial you can also include decoding logic and ui
@@ -113,11 +133,11 @@ elements into the tutorial in a similar way that the encoder was
 included. Simply add the following lines into your Rmd,
 
     ## Decode
-    
+
     ```{r context="server"}
     learnrhash::decoder_logic()
     ```
-    
+
     ```{r encode, echo=FALSE}
     learnrhash::decoder_ui()
     ```

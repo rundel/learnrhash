@@ -58,14 +58,18 @@ example
 
 Currently the package provides two functions for extracting question solutions and exercise solutions from these hashed data, for both functions the only required argument is the name of the column containing the hashed solutions
 
-To extract the questions,
+To extract the all submissions use,
 ```{r}
-learnrhash::extract_questions(example, hash)
+learnrhash::extract_hash(example)
 ```
 
-To extract the exercises,
+and to get just the exercises,
 ```{r}
-learnrhash::extract_exercises(example, hash)
+learnrhash::extract_exercises(example)
+```
+or questions,
+```{r}
+learnrhash::extract_questions(example)
 ```
 
 If you would like to experiment with this decoding and extraction while writing your tutorial you can also include decoding logic and ui elements into the tutorial in a similar way that the encoder was included. 
