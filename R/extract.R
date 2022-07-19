@@ -42,7 +42,7 @@ extract_hash = function(df, hash = "hash") {
     ) %>%
     tidyr::unnest_longer(.data[[hash]]) %>%
     tidyr::unnest_wider(.data[[hash]]) %>%
-    dplyr::relocate(.data[["id"]], .before="type")
+    dplyr::relocate(.data[["label"]], .before="type")
 
   if (is.null(d[["data"]]))
     d$data = list(NULL)
@@ -54,12 +54,12 @@ extract_hash = function(df, hash = "hash") {
 #' @export
 extract_exercises = function(df, hash = "hash") {
   extract_hash(df, hash) %>%
-    dplyr::filter(.data[["type"]] == "exercise_submission")
+    dplyr::filter(.data[["type"]] == "exercise")
 }
 
 #' @rdname extract
 #' @export
 extract_questions = function(df, hash = "hash") {
   extract_hash(df, hash) %>%
-    dplyr::filter(.data[["type"]] == "question_submission")
+    dplyr::filter(.data[["type"]] == "question")
 }
