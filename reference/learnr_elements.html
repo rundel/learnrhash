@@ -61,17 +61,17 @@ type.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">decoder_logic</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">decoder_ui</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">encoder_logic</span><span class="op">(</span>strip_output <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">default_ui</span><span class="op">(</span>url <span class="op">=</span> <span class="st">"http://google.com"</span><span class="op">)</span>
-
-<span class="fu">iframe_ui</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"http://google.com"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">encoder_ui</span><span class="op">(</span>ui_before <span class="op">=</span> <span class="fu">default_ui</span><span class="op">(</span><span class="op">)</span>, ui_after <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">decoder_logic</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">decoder_ui</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">encoder_logic</span><span class="op">(</span>strip_output <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">default_ui</span><span class="op">(</span>url <span class="op">=</span> <span class="st">"http://google.com"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">iframe_ui</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"http://google.com"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">encoder_ui</span><span class="op">(</span>ui_before <span class="op">=</span> <span class="fu">default_ui</span><span class="op">(</span><span class="op">)</span>, ui_after <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,16 +80,27 @@ type.</p>
 <dd><p>Exercises save their output as html, for exercises
 that result in plots these can result in very large hashes. The option allows
 this information to be removed to keep hash sizes more manageable.</p></dd>
+
+
 <dt>url</dt>
 <dd><p>Link url to use.</p></dd>
+
+
 <dt>src</dt>
 <dd><p>Source of the iframe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other iframe attributes, e.g. height and width</p></dd>
+
+
 <dt>ui_before</dt>
 <dd><p>Shiny ui elements to include before the hash ui</p></dd>
+
+
 <dt>ui_after</dt>
 <dd><p>Shiny ui elements to include after the hash ui,</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -109,7 +120,7 @@ shiny elements together with <code><a href="https://rdrr.io/pkg/htmltools/man/bu
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

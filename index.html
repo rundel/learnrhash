@@ -64,14 +64,13 @@
 <div class="page-header"><h1 id="learnrhash">learnrhash<a class="anchor" aria-label="anchor" href="#learnrhash"></a>
 </h1></div>
 <!-- badges: start -->
-
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>This package is still in the early stages of development and currently is only available from GitHub. To install the development version run the following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rundel/learnrhash"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rundel/learnrhash"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -98,8 +97,8 @@
 </h2>
 <p>The expectation is that after students submit their solutions you will be able to obtain some tabular representation of these results that can be read into R as a data frame. The package includes a simple example of this type of data which is loaded as follows</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example.rds"</span>, package<span class="op">=</span><span class="st">"learnrhash"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">example</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">example</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example.rds"</span>, package<span class="op">=</span><span class="st">"learnrhash"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">example</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## # A tibble: 2 × 3</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">##   student student_id hash                                                       </span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                                                      </span></span>
@@ -108,7 +107,7 @@
 <p>Currently the package provides two functions for extracting question solutions and exercise solutions from these hashed data, for both functions the only required argument is the name of the column containing the hashed solutions</p>
 <p>To extract the all submissions use,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_hash</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_hash</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## # A tibble: 10 × 5</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co">##    student student_id id            type                data            </span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="co">##    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;               &lt;list&gt;          </span></span>
@@ -124,7 +123,7 @@
 <span id="cb6-13"><a href="#cb6-13"></a><span class="co">## 10 Mine         10000 planets       question_submission &lt;named list [4]&gt;</span></span></code></pre></div>
 <p>and to get just the exercises,</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_exercises</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_exercises</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## # A tibble: 4 × 5</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">##   student student_id id    type                data            </span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;               &lt;list&gt;          </span></span>
@@ -134,7 +133,7 @@
 <span id="cb8-7"><a href="#cb8-7"></a><span class="co">## 4 Mine         10000 code2 exercise_submission &lt;named list [4]&gt;</span></span></code></pre></div>
 <p>or questions,</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_questions</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">learnrhash</span><span class="fu">::</span><span class="fu"><a href="reference/extract.html">extract_questions</a></span><span class="op">(</span><span class="va">example</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## # A tibble: 6 × 5</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">##   student student_id id            type                data            </span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="co">##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;               &lt;list&gt;          </span></span>
@@ -205,7 +204,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
