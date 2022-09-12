@@ -50,7 +50,7 @@ test_that("test extract w/ empty data", {
   exs = extract_exercises(df, "hash")
 
   expect_equal(dim(all), c(1,5))
-  expect_true(all(c("student","student_id", "id", "data", "type") == names(all)))
+  expect_true(all(c("student","student_id", "id", "type", "data") == names(all)))
 
 
   df2 = tibble::tibble(
@@ -65,7 +65,7 @@ test_that("test extract w/ empty data", {
 
 
   expect_equal(dim(all2), c(2,5))
-  expect_true(all(c("student","student_id", "id", "data", "type") == names(all2)))
+  expect_true(all(c("student","student_id", "id", "type", "data") == names(all2)))
 })
 
 
